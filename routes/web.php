@@ -7,6 +7,8 @@ use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\OrganizationsController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\JobController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +54,11 @@ Route::get('/', [DashboardController::class, 'index'])
 Route::get('users', [UsersController::class, 'index'])
     ->name('users')
     ->middleware('auth');
+
+    Route::get('jobs', [JobController::class, 'index'])
+    ->name('jobs')
+    ->middleware('auth');
+
 
 Route::get('users/create', [UsersController::class, 'create'])
     ->name('users.create')

@@ -42,11 +42,11 @@
                 <span>My Profile</span>
               </Link>
             </li>
-          <li :class="{ active: isLinkActive('/users') }">
-              <a href="/users" class="d-flex w-100 align-items-center">
+          <li :class="{ active: isLinkActive('/jobs') }">
+              <Link href="/jobs" class="d-flex w-100 align-items-center">
                 <img data-src="images/icon/icon_3.svg" alt="" class="lazy-img" />
                 <span>My Jobs</span>
-              </a>
+              </Link>
             </li>
             <li>
               <a href="employer-dashboard-message.html" class="d-flex w-100 align-items-center">
