@@ -39,6 +39,14 @@ Route::get('/', [DashboardController::class, 'index'])
     ->name('dashboard')
     ->middleware('auth');
 
+    Route::get('/jobpost', [DashboardController::class, 'jobpost'])
+    ->name('jobpost')
+    ->middleware('auth');
+
+    Route::post('/jobstore', [DashboardController::class, 'jobstore'])
+    ->name('jobstore')
+    ->middleware('auth');
+    
 // Users
 
 Route::get('users', [UsersController::class, 'index'])
@@ -68,6 +76,14 @@ Route::delete('users/{user}', [UsersController::class, 'destroy'])
 Route::put('users/{user}/restore', [UsersController::class, 'restore'])
     ->name('users.restore')
     ->middleware('auth');
+
+
+// profile
+
+Route::get('profile', [UsersController::class, 'profile'])
+    ->name('profile')
+    ->middleware('auth');
+
 
 // Organizations
 

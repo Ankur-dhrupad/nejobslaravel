@@ -1,55 +1,109 @@
 <template>
   <div>
-    <div id="dropdown" />
-    <div class="md:flex md:flex-col">
-      <div class="md:flex md:flex-col md:h-screen">
-        <div class="md:flex md:flex-shrink-0">
-          <div class="flex items-center justify-between px-6 py-4 bg-indigo-900 md:flex-shrink-0 md:justify-center md:w-56">
-            <Link class="mt-1" href="/">
-              <logo class="fill-white" width="120" height="28" />
-            </Link>
-            <dropdown class="md:hidden" placement="bottom-end">
-              <template #default>
-                <svg class="w-6 h-6 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
-              </template>
-              <template #dropdown>
-                <div class="mt-2 px-8 py-4 bg-indigo-800 rounded shadow-lg">
-                  <main-menu />
-                </div>
-              </template>
-            </dropdown>
+    <aside class="dash-aside-navbar">
+      <div class="position-relative">
+        <div class="logo text-md-center d-md-block d-flex align-items-center justify-content-between">
+         
+          <button class="close-btn d-block d-md-none"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="user-data">
+          <div class="user-avatar online position-relative rounded-circle">
+            <img src="images/avatar_01.jpg" data-src="images/avatar_01.jpg" alt="" class="lazy-img" />
           </div>
-          <div class="md:text-md flex items-center justify-between p-4 w-full text-sm bg-white border-b md:px-12 md:py-0">
-            <div class="mr-4 mt-1">{{ auth.user.account.name }}</div>
-            <dropdown class="mt-1" placement="bottom-end">
-              <template #default>
-                <div class="group flex items-center cursor-pointer select-none">
-                  <div class="mr-1 text-gray-700 group-hover:text-indigo-600 focus:text-indigo-600 whitespace-nowrap">
-                    <span>{{ auth.user.first_name }}</span>
-                    <span class="hidden md:inline">&nbsp;{{ auth.user.last_name }}</span>
-                  </div>
-                  <icon class="w-5 h-5 fill-gray-700 group-hover:fill-indigo-600 focus:fill-indigo-600" name="cheveron-down" />
-                </div>
-              </template>
-              <template #dropdown>
-                <div class="mt-2 py-2 text-sm bg-white rounded shadow-xl">
-                  <Link class="block px-6 py-2 hover:text-white hover:bg-indigo-500" :href="`/users/${auth.user.id}/edit`">My Profile</Link>
-                  <Link class="block px-6 py-2 hover:text-white hover:bg-indigo-500" href="/users">Manage Users</Link>
-                  <Link class="block px-6 py-2 w-full text-left hover:text-white hover:bg-indigo-500" href="/logout" method="delete" as="button">Logout</Link>
-                </div>
-              </template>
-            </dropdown>
+          <div class="user-name-data">
+            <button class="user-name dropdown-toggle" type="button" id="profile-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Admin</button>
+            <ul class="dropdown-menu" aria-labelledby="profile-dropdown">
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="candidate-dashboard-profile.html"><img data-src="images/icon/icon_23.svg" alt="" class="lazy-img" /><span class="ms-2 ps-1">Profile</span></a>
+              </li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="candidate-dashboard-settings.html"><img data-src="images/icon/icon_24.svg" alt="" class="lazy-img" /><span class="ms-2 ps-1">Account Settings</span></a>
+              </li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="#"><img data-src="images/icon/icon_25.svg" alt="" class="lazy-img" /><span class="ms-2 ps-1">Notification</span></a>
+              </li>
+            </ul>
           </div>
         </div>
-        <div class="md:flex md:flex-grow md:overflow-hidden">
-          <main-menu class="hidden flex-shrink-0 p-12 w-56 bg-indigo-800 overflow-y-auto md:block" />
-          <div class="px-4 py-8 md:flex-1 md:p-12 md:overflow-y-auto" scroll-region>
-            <flash-messages />
-            <slot />
+        <!-- /.user-data -->
+        <nav class="dasboard-main-nav">
+          <ul class="style-none">
+          <li :class="{ active: isLinkActive('/') }">
+              <Link href="/" class="d-flex w-100 align-items-center">
+                <img data-src="images/icon/icon_1_active.svg" alt="" class="lazy-img" />
+                <span>Dashboard</span>
+              </Link>
+            </li>
+
+
+          <li :class="{ active: isLinkActive('/profile') }">
+              <Link href="/profile" class="d-flex w-100 align-items-center">
+                <img data-src="images/icon/icon_2.svg" alt="" class="lazy-img" />
+                <span>My Profile</span>
+              </Link>
+            </li>
+          <li :class="{ active: isLinkActive('/users') }">
+              <a href="/users" class="d-flex w-100 align-items-center">
+                <img data-src="images/icon/icon_3.svg" alt="" class="lazy-img" />
+                <span>My Jobs</span>
+              </a>
+            </li>
+            <li>
+              <a href="employer-dashboard-message.html" class="d-flex w-100 align-items-center">
+                <img data-src="images/icon/icon_4.svg" alt="" class="lazy-img" />
+                <span>Messages</span>
+              </a>
+            </li>
+            <li>
+              <a href="employer-dashboard-submit-job.html" class="d-flex w-100 align-items-center">
+                <img data-src="images/icon/icon_39.svg" alt="" class="lazy-img" />
+                <span>Submit Job</span>
+              </a>
+            </li>
+            <li>
+              <a href="employer-dashboard-saved-candidate.html" class="d-flex w-100 align-items-center">
+                <img data-src="images/icon/icon_6.svg" alt="" class="lazy-img" />
+                <span>Saved Candidate</span>
+              </a>
+            </li>
+            <li>
+              <a href="" class="d-flex w-100 align-items-center">
+                <img data-src="images/icon/icon_40.svg" alt="" class="lazy-img" />
+                <span>Membership</span>
+              </a>
+            </li>
+            <li>
+              <a href="employer-dashboard-settings.html" class="d-flex w-100 align-items-center">
+                <img data-src="images/icon/icon_7.svg" alt="" class="lazy-img" />
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="d-flex w-100 align-items-center" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <img data-src="images/icon/icon_8.svg" alt="" class="lazy-img" />
+                <span>Delete Account</span>
+              </a>
+            </li>
+            <li>
+              <Link href="/logout" class="d-flex w-100 align-items-center" method="delete">
+                <img data-src="images/icon/icon_2.svg" alt="" class="lazy-img" />
+                <span>Log out</span>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+        <!-- /.dasboard-main-nav -->
+        <div class="profile-complete-status">
+          <div class="progress-value fw-500">87%</div>
+          <div class="progress-line position-relative">
+            <div class="inner-line" style="width: 80%"></div>
           </div>
+          <p>Profile Complete</p>
         </div>
+        <!-- /.profile-complete-status -->
       </div>
-    </div>
+    </aside>
+    <slot />
   </div>
 </template>
 
@@ -72,6 +126,13 @@ export default {
   },
   props: {
     auth: Object,
+  },
+
+   methods: {
+    isLinkActive(route) {
+      // Check if the current route matches the specified route
+      return this.$page.url.startsWith(route);
+    },
   },
 }
 </script>

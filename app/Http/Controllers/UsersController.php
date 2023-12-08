@@ -37,6 +37,11 @@ class UsersController extends Controller
         return Inertia::render('Users/Create');
     }
 
+    public function profile()
+    {
+        return Inertia::render('Users/Profile');
+    }
+
     public function store()
     {
         Request::validate([
